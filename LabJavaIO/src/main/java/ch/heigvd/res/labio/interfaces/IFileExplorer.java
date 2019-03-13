@@ -21,8 +21,8 @@ public interface IFileExplorer {
    * calls visitor.visit(file).
    * 
    * @param rootDirectory the directory where to start the traversal
-   * @param vistor defines the operation to be performed on each file
+   * @param visitor defines the operation to be performed on each file
    */
-  public void explore(File rootDirectory, IFileVisitor vistor);
+  public void explore(File rootDirectory, IFileVisitor visitor);
   
 }
