@@ -126,12 +126,14 @@ public class Application implements IApplication {
     String path = WORKSPACE_DIRECTORY;
 
     for(String tag : quote.getTags())
-      path += File.separator + tag;
+      path += "/" + tag;
 
-    new File(path).mkdirs();
+    File f = new File(path);
+    f.mkdirs();
 
-    OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path + File.separator + filename), "UTF-8");
+    OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path + "/" + filename), "UTF-8");
     out.write(quote.getQuote());
+    out.flush();
     out.close();
   }
   
@@ -149,6 +151,13 @@ public class Application implements IApplication {
          * of the the IFileVisitor interface inline. You just have to add the body of the visit method, which should
          * be pretty easy (we want to write the filename, including the path, to the writer passed in argument).
          */
+        try {
+          writer.write(file.getPath() + "\n");
+          writer.flush();
+        } catch (IOException ex) {
+          LOG.log(Level.SEVERE, "Could not write filepath. {0}", ex.getMessage());
+          ex.printStackTrace();
+        }
       }
     });
   }
